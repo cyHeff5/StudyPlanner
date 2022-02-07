@@ -121,7 +121,7 @@ public class StudyPlanner extends Application {
         Button BtDeleteModul = buttonAndElement.getBtDeleteModul(Module, Events, SchoolTimeTable, StudyPlan, entityManager, entityTransaction, listbox);
         Button BtGenerateSP = buttonAndElement.getBtGenerateStudyPlan(Module, Events, StudyPlan, entityManager, entityTransaction, listbox);
         Button BtShowQuote = buttonAndElement.getBtShowQuote();
-        Pane leftSideSplitPane = buttonAndElement.getLeftSideSplitPane(BtCreateEvent, BtCreateModul, BtDeleteModul, listbox, BtShowQuote);
+        Pane leftSideSplitPane = buttonAndElement.getLeftSideSplitPane(BtCreateEvent, BtCreateFiller, BtCreateModul, BtDeleteModul, BtGenerateSP, listbox, BtShowQuote);
 
         BtCreateEvent.setMinWidth(200);
         BtCreateFiller.setMinWidth(200);
@@ -166,23 +166,6 @@ public class StudyPlanner extends Application {
         return null;
     }
 
-    /**
-     * Is entry added.
-     *
-     * @param event
-     *         the event
-     */
-    public void isEntryAdded(CalendarEvent event) {
-        if (event.isEntryAdded()) {
-            for (Modul modul : Module) {
-                if (modul.getUuid().contains(event.getEntry().getId())) {
-                    modul.getEcts().setDuration(modul.getEcts().getDuration().minus(event.getEntry().getDuration()));
-
-                    helper.changeListBoxButtonText(modul, listbox);
-                }
-            }
-        }
-    }
     
     public void checkEvent(CalendarEvent event) {
         Event eventId = findEventId(event.getEntry().getId());
@@ -287,6 +270,12 @@ public class StudyPlanner extends Application {
         }
     }
     
+    /**
+     * Is entry added.
+     *
+     * @param event
+     *         the event
+     */
     public void isEntryAdded(CalendarEvent event) {
         for (Modul modul : Module) {
             if (modul.getUuid().contains(event.getEntry().getId())) {
