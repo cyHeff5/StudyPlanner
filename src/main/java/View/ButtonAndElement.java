@@ -30,6 +30,23 @@ public class ButtonAndElement {
                 });
         return BtCreateEvent;
     }
+    
+    /**
+     * Gets bt create fillerEvent.
+     *
+     * @return the bt create fillerEvent
+     * @author Leon
+     */
+    public Button getBtCreateFillerEvent(List<Modul> Module, List<Event> Events, Calendar StudyPlan, EntityManager entityManager, EntityTransaction entityTransaction) {
+        Button BtCreateFillerEvent = new Button("Filler-Event erstellen");
+        BtCreateFillerEvent.setOnAction(
+                event -> {
+                    if(event.getSource() == BtCreateFillerEvent) {
+                        NewEvent.createNewFillerEvent(Module, Events, StudyPlan, entityManager, entityTransaction);
+                    }
+                });
+        return BtCreateFillerEvent;
+    }
 
     /**
      * Gets bt create modul.
@@ -67,6 +84,26 @@ public class ButtonAndElement {
                 });
         return BtDeleteModul;
     }
+    
+    /**
+     * Gets bt generate StudyPlan.
+     *
+     * @return the bt generate StudyPlan
+     * @author Leon
+     */
+    public Button getBtGenerateStudyPlan(List<Modul> module, List<Event> events, Calendar StudyPlan, EntityManager entityManager, EntityTransaction entityTransaction, ListView<Button> listbox) {
+        Button BtGenerateStudyPlay = new Button("Lernplan generieren");
+        BtGenerateStudyPlay.setOnAction(
+                event -> {
+                    if (event.getSource() == BtGenerateStudyPlay) {
+                        StudyPlanGenerator spg = new StudyPlanGenerator(events, module, StudyPlan,entityManager, entityTransaction);
+                        spg.start();
+                    }
+                }
+        );
+
+        return BtGenerateStudyPlay;
+    }
 
     /**
      * Gets bt create showquote.
@@ -98,12 +135,12 @@ public class ButtonAndElement {
      * @return the left side split pane
      */
 
-    public Pane getLeftSideSplitPane(Button BtCreateEvent, Button BtCreateModul, Button BtDeleteModul, ListView<Button> listbox, Button btShowQuote) {
+    public Pane getLeftSideSplitPane(Button BtCreateEvent,Button BtCreateFiller, Button BtCreateModul, Button BtDeleteModul, Button BtGenerateSP, ListView<Button> listbox, Button btShowQuote) {
 
         BorderPane BPLayoutLeft = new BorderPane();
         VBox VbButtonBox = new VBox();
         VbButtonBox.setSpacing(15);
-        VbButtonBox.getChildren().addAll(BtCreateEvent, BtCreateModul, BtDeleteModul, btShowQuote);
+        VbButtonBox.getChildren().addAll(BtCreateEvent,BtCreateFiller, BtCreateModul, BtDeleteModul, BtGenerateSP, btShowQuote);
         BPLayoutLeft.setTop(VbButtonBox);
         BPLayoutLeft.setBottom(listbox);
         Pane PBar = new Pane(BPLayoutLeft);// ist die toolbar
