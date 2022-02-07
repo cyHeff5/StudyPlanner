@@ -2,6 +2,7 @@ package View;
 
 import Model.Event;
 import Model.Modul;
+import Model.StudyPlanGenerator;
 import com.calendarfx.model.Calendar;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
