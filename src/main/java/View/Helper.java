@@ -20,11 +20,16 @@ public class Helper {
          *         the item
          */
         public void changeListBoxButtonText(Modul item, ListView<Button> listbox) {
-                listbox.getItems()
-                        .stream()
-                        .filter(e -> replaceButtonName(e.getText().trim()).equals(item.getModulname().trim()))
-                        .forEach(e -> e.setText(item.toString2()));
+                Platform.runLater(() -> {
+                        
+                    listbox.getItems()
+                            .stream()
+                            .filter(e -> replaceButtonName(e.getText().trim()).equals(item.getModulname().trim()))
+                            .forEach(e -> e.setText(item.toString2()));
+                        
+                });
         }
+                                  
         /**
          * Replace button name string.
          *
@@ -57,16 +62,16 @@ public class Helper {
                                 while (true) {
 
                                         Platform.runLater(() -> {
-                                                calendarView.setToday(LocalDate.now());
-                                                calendarView.setTime(LocalTime.now());
+                                            calendarView.setToday(LocalDate.now());
+                                            calendarView.setTime(LocalTime.now());
                                         });
 
                                         try {
 
-                                                // update every 10 seconds
-                                                sleep(10000);
+                                            // update every 10 seconds
+                                            sleep(10000);
                                         } catch (InterruptedException e) {
-                                                e.printStackTrace();
+                                            e.printStackTrace();
                                         }
 
                                 }
